@@ -1,0 +1,1101 @@
+\documentclass[a4paper, 12pt, twoside]{article}
+
+
+%------------------------------------------------------------------------
+%
+% Author                :   Lasercata
+% Last modification     :   2023.05.21
+%
+%------------------------------------------------------------------------
+
+
+%------ini
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[french]{babel}
+%\usepackage[english]{babel}
+
+
+%------geometry
+\usepackage[textheight=700pt, textwidth=500pt]{geometry}
+
+
+%------color
+\usepackage{xcolor}
+\definecolor{ff4500}{HTML}{ff4500}
+\definecolor{00f}{HTML}{0000ff}
+\definecolor{0ff}{HTML}{00ffff}
+\definecolor{656565}{HTML}{656565}
+
+\renewcommand{\emph}{\textcolor{ff4500}}
+\renewcommand{\em}{\color{ff4500}}
+
+\newcommand{\strong}[1]{\textcolor{ff4500}{\bf #1}}
+\newcommand{\st}{\color{ff4500}\bf}
+
+
+%------Code highlighting
+%---listings
+\usepackage{listings}
+
+\definecolor{cbg}{HTML}{272822}
+\definecolor{cfg}{HTML}{ececec}
+\definecolor{ccomment}{HTML}{686c58}
+\definecolor{ckw}{HTML}{f92672}
+\definecolor{cstring}{HTML}{e6db72}
+\definecolor{cstringlight}{HTML}{98980f}
+\definecolor{lightwhite}{HTML}{fafafa}
+
+\lstdefinestyle{DarkCodeStyle}{
+    backgroundcolor=\color{cbg},
+    commentstyle=\itshape\color{ccomment},
+    keywordstyle=\color{ckw},
+    numberstyle=\tiny\color{cbg},
+    stringstyle=\color{cstring},
+    basicstyle=\ttfamily\footnotesize\color{cfg},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    xleftmargin=\leftskip
+}
+
+\lstdefinestyle{LightCodeStyle}{
+    backgroundcolor=\color{lightwhite},
+    commentstyle=\itshape\color{ccomment},
+    keywordstyle=\color{ckw},
+    numberstyle=\tiny\color{cbg},
+    stringstyle=\color{cstringlight},
+    basicstyle=\ttfamily\footnotesize\color{cbg},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=10pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    frame=L,
+    xleftmargin=\leftskip
+}
+
+%\lstset{style=DarkCodeStyle}
+\lstset{style=LightCodeStyle}
+%Usage : \begin{lstlisting}[language=Caml] ... \end{lstlisting}
+
+%---tcolorbox
+\usepackage[many]{tcolorbox}
+\DeclareTColorBox{pseudocode}{O{black}O{lightwhite}}{
+    breakable,
+    outer arc=0pt,
+    arc=0pt,
+    top=0pt,
+    toprule=-.5pt,
+    right=0pt,
+    rightrule=-.5pt,
+    bottom=0pt,
+    bottomrule=-.5pt,
+    colframe=#1,
+    colback=#2,
+    enlarge left by=10pt,
+    width=\linewidth-\leftskip-10pt,
+}
+
+
+%-------make the table of content clickable
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage{xurl}
+%Uncomment this and comment above for dark mode
+% \hypersetup{
+%     colorlinks,
+%     citecolor=white,
+%     filecolor=white,
+%     linkcolor=white,
+%     urlcolor=white
+% }
+
+
+%------pictures
+\usepackage{graphicx}
+%\usepackage{wrapfig}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+
+
+%------tabular
+%\usepackage{color}
+%\usepackage{colortbl}
+%\usepackage{multirow}
+
+
+%------Physics
+%---Packages
+%\usepackage[version=4]{mhchem} %$\ce{NO4^2-}$
+
+%---Commands
+\newcommand{\link}[2]{\mathrm{#1} \! - \! \mathrm{#2}}
+\newcommand{\pt}[1]{\cdot 10^{#1}} % Power of ten
+\newcommand{\dt}[2][t]{\dfrac{\mathrm d #2}{\mathrm d #1}} % Derivative
+
+
+%------math
+%---Packages
+%\usepackage{textcomp}
+%\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools} % For abs
+\usepackage{stmaryrd} %for \llbracket and \rrbracket
+\usepackage{mathrsfs} %for \mathscr{x} (different from \mathcal{x})
+
+%---Commands
+%-Sets
+\newcommand{\N}{\mathbb{N}} %set N
+\newcommand{\Z}{\mathbb{Z}} %set Z
+\newcommand{\Q}{\mathbb{Q}} %set Q
+\newcommand{\R}{\mathbb{R}} %set R
+\newcommand{\C}{\mathbb{C}} %set C
+\newcommand{\U}{\mathbb{U}} %set U
+\newcommand{\seg}[2]{\left[ #1\ ;\ #2 \right]}
+\newcommand{\nset}[2]{\left\llbracket #1\ ;\ #2 \right\rrbracket}
+
+%-Exponantial / complexs
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\cj}[1]{\overline{#1}} %overline for the conjugate.
+
+%-Vectors
+\newcommand{\vect}{\overrightarrow}
+\newcommand{\veco}[3]{\displaystyle \vect{#1}\binom{#2}{#3}} %vector + coord
+
+%-Limits
+\newcommand{\lm}[2][{}]{\lim\limits_{\substack{#2 \\ #1}}} %$\lm{x \to a} f$ or $\lm[x < a]{x \to a} f$
+\newcommand{\Lm}[3][{}]{\lm[#1]{#2} \left( #3 \right)} %$\Lm{x \to a}{f}$ or $\Lm[x < a]{x \to a}{f}$
+\newcommand{\tendsto}[1]{\xrightarrow[#1]{}}
+
+%-Integral
+\newcommand{\dint}[4][x]{\displaystyle \int_{#2}^{#3} #4 \mathrm{d} #1} %$\dint{a}{b}{f(x)}$ or $\dint[t]{a}{b}{f(t)}$
+
+%-left right
+\newcommand{\lr}[1]{\left( #1 \right)}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\lrangle}[1]{\left\langle #1 \right\rangle}
+
+%-Others
+\newcommand{\para}{\ /\!/\ } %//
+\newcommand{\ssi}{\ \Leftrightarrow \ }
+\newcommand{\eqsys}[2]{\begin{cases} #1 \\ #2 \end{cases}}
+
+\newcommand{\med}[2]{\mathrm{med} \left[ #1\ ;\ #2 \right]}  %$\med{A}{B} -> med[A ; B]$
+\newcommand{\Circ}[2]{\mathscr{C}_{#1, #2}}
+
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+
+\newcommand{\oboxed}[1]{\textcolor{ff4500}{\boxed{\textcolor{black}{#1}}}} %orange boxed
+
+
+%------commands
+%---to quote french text
+\newcommand{\simplecit}[1]{\guillemotleft$\;$#1$\;$\guillemotright}
+\newcommand{\cit}[1]{\simplecit{\textcolor{656565}{#1}}}
+\newcommand{\quo}[1]{\cit{\it #1}}
+
+%---to indent
+\newcommand{\ind}[1][20pt]{\advance\leftskip + #1}
+\newcommand{\deind}[1][20pt]{\advance\leftskip - #1}
+
+%---to indent a text
+\newcommand{\indented}[2][20pt]{\par \ind[#1] #2 \par \deind[#1]}
+\newenvironment{indt}[2][20pt]{#2 \par \ind[#1]}{\par \deind} %Titled indented env
+
+%---title
+\newcommand{\thetitle}[2]{\begin{center}\textbf{{\LARGE \underline{\emph{#1} :}} {\Large #2}}\end{center}}
+
+
+%------Sections
+% To change section numbering :
+% \renewcommand\thesection{\Roman{section}}
+% \renewcommand\thesubsection{\arabic{subsection}}
+% \renewcommand\thesubsubsection{\aleph{subsection}}
+
+% To start numbering from 0
+% \setcounter{section}{-1}
+
+
+%------page style
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\setlength{\headheight}{18pt}
+\setlength{\footskip}{50pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE, RO]{\textit{\textcolor{black}{\today}}}
+\fancyhead[RE, LO]{\large{\textsl{\emph{\texttt{\jobname}}}}}
+
+\fancyfoot[RO, LE]{\textit{\texttt{\textcolor{black}{Page \thepage /}\pageref{LastPage}}}} %Change 'black' to 'white' for dark mode
+\fancyfoot[LO, RE]{\includegraphics[scale=0.12]{/home/lasercata/Pictures/1.images_profil/logo/mieux/lasercata_logo_fly_fond_blanc.png}}
+
+% For dark mode :
+%/home/lasercata/Pictures/1.images_profil/logo/mieux/lasercata_logo_fly.png
+
+
+%------init lengths
+\setlength{\parindent}{0pt} %To avoid using \noindent everywhere.
+\setlength{\parskip}{3pt}
+
+
+%---------------------------------Begin Document
+\begin{document}
+    
+    %For dark mode :
+    % \pagecolor{black}
+    % \color{white}
+    
+    \thetitle{TIPE}{Draft}
+    
+    \tableofcontents
+    \newpage
+    
+    
+    \begin{indt}{\section{Common modulus}}
+        
+        Given : $N$ (common modulus), $e, d$ (known public and private exponent), $e_1$ (public exponent linked to searched private one).
+        
+        First search $p, q \in \mathbb P\ |\ N = pq$.
+        
+        We have 
+            \[ ed \equiv 1 \ [\phi(N)] \]
+            \[ \gcd(e, \phi(N)) = 1 \]
+        
+        
+        Let $k = ed - 1$. By definition, $\exists \lambda \in \N\ |\ ed - 1 = \lambda \cdot \phi(N)$.
+        
+        However $\phi(N) = (p - 1)(q - 1)$, so $2^2\ |\ \phi(N)$ (because $p, q \in \mathbb P$, thus $p \equiv q \equiv 1 \ [2]$)
+
+        \vspace{12pt}
+
+        Let $n = pq$, and $x \in \Z/n\Z$.
+            \[
+                \begin{array}{rcl}
+                    x \in (\Z/n\Z)^* &\ssi& \exists y \in \Z/n\Z \ |\ xy \equiv 1\ [n]
+                    \vspace{6pt}
+                    \\
+                    &\ssi& \exists (y, k) \in \Z/n\Z \times \N\ |\ xy - kn = 1
+                    \vspace{6pt}
+                    \\
+                    &\ssi& \gcd(x, n) = 1
+                \end{array}
+            \]
+        
+    \end{indt}
+
+    \vspace{12pt}
+    
+    \begin{indt}{\section{Fermat factorisation}}
+        if $n$ is composite,
+        \[
+            \exists a, b \in \N\ |\ n = a^2 - b^2 = (a - b)(a + b) = pq \quad (*)
+        \]
+        So we have $b^2 = a^2 - n$.
+
+        Then choose $a = \ceil{\sqrt{n}\ }$. If $a^2 - n$ is a square, won. Otherwise, increment $a$.
+
+        \vspace{12pt}
+        
+        Proof for $(*)$ :
+
+        If $n = pq$, then we have :
+        \[
+            \lr{\dfrac{p + q}{2}}^2 - \lr{\dfrac{p - q}{2}}^2
+            = \dfrac{p^2 + 2pq + q^2}{4} - \dfrac{p^2 - 2pq + q^2}{4}
+            = pq = n\ \blacksquare
+        \]
+    \end{indt}
+
+    \vspace{12pt}
+    
+    \begin{indt}{\section{Same message}}
+        \begin{indt}{\subsection{same modulus}}
+            If the same message $m$ is sent to Alice $(e_1, n)$ and Bob $(e_2, n)$.
+
+            Alice receives $c_1 = m^{e_1} \mod n$
+
+            Bob receives $c_2 = m^{e_2} \mod n$.
+
+            We have :
+            \[
+                c_1 c_2 \equiv m^{e_1} m^{e_2} \equiv m^{e_1 + e_2}\ [n]
+            \]
+            (pointless)
+
+            If $\gcd(e_1, e_2) = 1$,
+            \[
+                \exists a, b \in \Z\ |\ ae_1 + be_2 = 1
+            \]
+
+            and
+            \[
+                c_1^a \cdot c_2^b
+                \equiv m^{a \cdot e_1} \cdot m^{b \cdot e_2}
+                \equiv m^{a e_1 + be_2}
+                \equiv m\ [n]
+            \]
+
+            But not a realistic situation : Alice ans Bob can calculate each other's private exponent.
+        \end{indt}
+
+        \vspace{12pt}
+        
+        \begin{indt}{\subsection{same message}}
+            From \url{https://security.stackexchange.com/questions/166370/how-to-do-rsa-same-message-attack}
+
+            Let be $m$ the message, and $\forall i \in \nset 1 3,\ n_i$ the modulus.
+
+            The keys are $(e, n_i)$, where $e = 3$.
+
+            The encrypted messages are :
+            \[
+                \forall i \in \nset 1 3,\ c_i \equiv m^e\ [n_i]
+            \]
+
+            We have the following system (we need $e$ equations in fact) :
+            \[
+                \begin{cases}
+                    c_1 \equiv m^e\ [n_1]
+                    \\
+                    c_2 \equiv m^e\ [n_2]
+                    \\
+                    c_3 \equiv m^e\ [n_3]
+                \end{cases}
+            \]
+
+            CRT (why ?)
+
+            \[
+                M = \prod_{k = 1}^e n_k
+            \]
+            \[
+                \forall k \in \nset 1 e,\ M_k = \dfrac M {n_k}
+            \]
+            \[
+                m^3 \equiv \lr{\sum_{k = 1}^e c_k \cdot M_k \cdot (M_k^{-1} \mod m_i)} \mod M
+            \]
+        \end{indt}
+    \end{indt}
+
+    \vspace{12pt}
+    
+    \begin{indt}{\section{Large numbers}}
+        \begin{indt}{\subsection{Large message}}
+            \label{largeMessage}
+
+            Let $m$ be a message, $c = m^e\ [N]$.
+
+            If $m$ is close of $N$ (\textit{cf} paper on large private exponent)
+
+            We have
+            \[
+                \begin{array}{rcl}
+                    N - N^{\tfrac 1 e} < m < N
+                    &\ssi& 0 < \underbrace{N - m}_{m_0} < N^{\tfrac 1 e}
+                    \\
+                    &\ssi& 0 < {m_0}^e < N
+                \end{array}
+            \]
+
+            So if $N - N^{\tfrac 1 e} < m < N$, let $m_0 = N - m$, and we have
+            \[
+                m_0 \equiv N - m \equiv -m\ [N]
+            \]
+
+            So as $e \equiv 1\ [2]$,
+            \[
+                m_0^e \equiv (-m)^e \equiv (-1)^e m^e \equiv -m^e \equiv -c\ [N]
+            \]
+
+            Thus we can calculate $m_0$ :
+            \[
+                m_0 = \lr{-c \mod N}^{\tfrac 1 e}
+            \]
+
+            And we can recover $m$ :
+            \[
+                m = N - m_0 = N - \lr{-c \mod N}^{\tfrac 1 e}
+            \]
+        \end{indt}
+    \end{indt}
+
+    \vspace{12pt}
+    
+    \begin{indt}{\section{Hastad Attack}}
+        \begin{indt}{\subsection{Notations}}
+            Let $m$ be the message, $p$ the number of messages, $(e_k)_{k \in \nset 1 p}$ the public exponents, and $(n_k)_{k \in \nset 1 p}$ the modulus.
+            
+            Let $(c_k)_{k \in \nset 1 p}$ the corresponding cipher texts. We have :
+            
+            \[
+                \left\{
+                \begin{array}{rcl}
+                    c_1 &\equiv& m^{e_1}\ [n_1]
+                    \\
+                        &\vdots
+                    \\
+                    c_k &\equiv& m^{e_k}\ [n_k]
+                    \\
+                        &\vdots
+                    \\
+                    c_p &\equiv& m^{e_p}\ [n_p]
+                \end{array}
+                \right.
+            \]
+            
+            We suppose that
+            \[
+                \forall (i, j) \in \nset 1 p ^2,\
+                i \neq j \Rightarrow n_i \wedge n_j = 1
+            \]
+            
+            Otherwise, one can factor the modulus by calculating the gcds.
+        \end{indt}
+
+        \begin{indt}{\subsection{CRT}}
+            \begin{pseudocode}
+                CRT :
+            
+                Let $n \in \N\ |\ n \ge 2$, and $(a_k)_{k \in \nset 1 n} \subset \N^* \setminus \set 1$ such that
+                \[
+                    \forall (i, j) \in \nset 1 n ^2,\
+                    i \neq j \Rightarrow a_i \wedge a_j = 1
+                \]
+            
+                Then, with $\displaystyle a = \prod_{k = 1}^n a_k$ :
+            
+                \[
+                    \begin{array}{ccccc}
+                        \varphi & : & \Z/a\Z & \longrightarrow & \displaystyle \prod_{k = 1}^n \Z / a_k \Z
+                        \vspace{3pt}
+                        \\
+                                &   & cl_a(k) & \longmapsto & (cl_{a_1}(k), \ldots, cl_{a_n}(k))
+                    \end{array}
+                \]
+            
+                is a bijection (even a ring isomorphism).
+            
+                \vspace{12pt}
+            
+                Determination of $\varphi^{-1}$ :
+            
+                \[
+                    \begin{array}{cl}
+                        & \varphi^{-1}((cl_{a_1}(\alpha_1), \ldots, cl_{a_n}(\alpha_n)))
+                        \\
+                        =& \displaystyle
+                        \varphi^{-1}\!\lr{\sum_{k = 1}^n \alpha_k \lr{cl_{a_1}(0), \ldots, cl_{a_{k - 1}}(0), cl_{a_k}(1), cl_{a_{k + 1}}(0), \ldots, cl_{a_n}(0)}}
+                        \\
+                        =& \displaystyle
+                        \sum_{k = 1}^n \alpha_k \underbrace{\varphi^{-1} \lr{cl_{a_1}(0), \ldots, cl_{a_{k - 1}}(0), cl_{a_k}(1), cl_{a_{k + 1}}(0), \ldots, cl_{a_n}(0)}}_{cl_a(m_k)}
+                        \\
+                        =& \displaystyle \sum_{k = 0}^n \alpha_k cl_a(m_k)
+                    \end{array}
+                \]
+            
+                Is is enough to find suitable $m_k$, \textit{i.e} such that $\forall k \in \nset 1 n$,
+                \[
+                    \begin{cases}
+                        m_k \in \Z
+                        \\
+                        \forall i \in \nset 1 n \setminus \set k,\
+                        m_k \equiv 0\ [a_i]
+                        \\
+                        m_k \equiv 1\ [a_k]
+                    \end{cases}
+                \]
+            
+                Let $A = \displaystyle \prod_{k = 1}^n a_k$, and $\forall k \in \nset 1 n$, $A_k = \dfrac{A}{a_k}$
+            
+                As the $a_k$ are pairwise coprime, $\forall k \in \nset 1 n,\ A_k \wedge a_k = 1$, so using \textsc{Bézout}'s identity :
+                \[
+                    \exists B_k, b_k \in \Z\ |\
+                    A_k B_k + a_k b_k = 1
+                \]
+                ($B_k \equiv \lr{A_k}^{-1}\ [a_k]$)
+            
+                \vspace{6pt}
+            
+                Let $\forall k \in \nset 1 n,\ m_k = A_k B_k \in \Z$.
+            
+                \vspace{6pt}
+            
+                We have, $\forall k \in \nset 1 n$ :
+                \[
+                    m_k \equiv A_k B_k \equiv 1 - a_k b_k \equiv 1\ [a_k]
+                \]
+            
+                and $\forall i \in \nset 1 n \setminus \set k$ :
+                \[
+                    m_k \equiv A_k B_k \equiv 0\ [a_i]
+                \]
+                because $a_i | A_k$.
+            
+                \vspace{12pt}
+            
+                And finally :
+                \[
+                    \varphi^{-1}\lr{cl_{a_1}(\alpha_1), \ldots, cl_{a_n}(\alpha_n)}
+                    =
+                    \sum_{k = 1}^n \alpha_k cl_a(A_k B_k)
+                \]
+            \end{pseudocode}
+            
+            \vspace{12pt}
+            
+            So applied here :
+            
+            %Let $\forall k \in \nset 1 n,\ C_k \in \Z\ |\ C_k^{e_k} \equiv c_k\ [n_k]$.
+            
+            Suppose that all $e_k$ are equal to $e \in \Z$.
+            
+            Then by the previous thing, there is one solution to the system, which is :
+            \[
+                m^e \equiv \sum_{k = 1}^p c_k N_k M_k\ [N]
+            \]
+            where $\forall k \in \nset 1 p$ :
+            \[
+                \begin{array}{rcl}
+                    N &=& \displaystyle
+                    \prod_{i = 1}^p n_i
+                    \vspace{6pt}
+                    \\
+                    N_k &=& \displaystyle
+                    \prod_{\substack{i = 1 \\ i \neq k}}^p n_i
+                    = \dfrac N {n_k}
+                    \vspace{6pt}
+                    \\
+                    M_k &\equiv& \lr{N_k}^{-1}\ [n_k]
+                \end{array}
+            \]
+            
+            Then we can recover $m$ by calculating the $e$\textsuperscript{th} root of $m^e$ (if $m^e < N$).
+        \end{indt}
+
+        \vspace{12pt}
+
+        \begin{indt}{\subsection{Number of equations needed}}
+            $\bullet$ Finding the minimal number of equations needed :
+            
+            If we suppose that all moduli are of the same size (approximatively the same number of bits), we have :
+            \[
+                \displaystyle m^e < N
+                \Rightarrow
+                m < \sqrt[e]{N}
+                = \prod_{k = 1}^p \sqrt[e]{n_k}
+                \approx {\sqrt[e]{n_1}}^p
+                = {n_1}^{\tfrac p e}
+            \]
+            
+            So if $p < e$, then $\dfrac p e < 1$, and ${n_1}^{\tfrac p e} < n_1$.
+            
+            But messages can be up to $n_1$ long, so we need to have $p \le e$.
+            
+            ---
+            
+            Example with $e = 3$ : if we have only two equations, then if
+            \[
+                m \ge n^{\tfrac 2 3} = \dfrac{n}{\sqrt[3]{n}}
+            \]
+            then we won't be able to compute the $e$\textsuperscript{th}.
+            
+            ---
+            
+            \vspace{6pt}
+            
+            Let note $s$ the bit size of the modulus (often 2048), so $n_1 \approx 2^s = n$.
+            
+            With a message $m$, the minimum number of equations $p$ that are needed is such that :
+            \[
+                \begin{array}{rcl}
+                    && m < \lr{2^s}^{\tfrac p e} = 2^{\tfrac{sp} e}
+                    \vspace{6pt}
+                    \\
+                    &\ssi& \dfrac{sp}{e} > \log_2(m)
+                    \vspace{6pt}
+                    \\
+                    &\ssi& \oboxed{p > \dfrac{e}{s} \log_2(m)}
+                \end{array}
+            \]
+            
+            Typically, $e = 2^{16} + 1$, $s = 2048$, so $\dfrac e s = \dfrac{2^{16} + 1}{2^{11}} \approx \dfrac{2^{16}}{2^{11}} = 2^5 = 32 \approx \dfrac e s$.
+            The number $m$ is the encoded version of the string $m_{\rm s}$.
+            If $m_{\rm s}$ is $l$ characters long, then $\oboxed{\log_2(m) \approx \alpha l}$, where $\alpha = 8$.
+            
+            So in order for the attack to work, we need $p > 256 l$ in this case. This is thus not really realistic ...
+            
+            We have also $p > \alpha \dfrac e s l$.
+            
+            If we have $p$ equations, it is possible to recover the message if that one has less than $\dfrac{p s}{\alpha e}$ char.
+            
+            With $p = 3$, $e = 3$, $s = 2048$, then if $l < 2^{11 - 3} = 256$, we are able to recover $m$.
+        \end{indt}
+
+        %---
+
+        %To encrypt, we need that the numeral representation of $m$ to be lesser than $n_k,\ \forall k \in \nset 1 p$.
+
+        %So here, we have :
+        %\[
+        %    \forall k \in \nset 1 p,\ m \le n_k
+        %\]
+
+        %So $m^p \le \displaystyle \prod_{k = 1}^p n_k = N$
+
+        %Let suppose that $m > 1$. So $m \ge 2$, and $m^e \ge 2^e$
+
+        %And we need to have $p \ge e$ to be able to compute the $e$-th root and thus for the attack to work (maybe less if the message is small ?).
+
+        %---
+
+        %\vspace{12pt}
+        
+        %There is something weird : it works when $p = e$, and not otherwise, but this has not been used here ...
+
+        %Indeed, if we remove or add an equation, then the $m^e$ will be changed, as well as $N$, so why would it be $p = e$ the good one ?
+
+        %\vspace{12pt}
+        %
+        %$\bullet$ Question : if we have a missing equation ? Is it possible to do something ?
+
+        %\vspace{6pt}
+        %
+        %Let suppose that $c_p$ is unknown. We have $c_p \in \nset 0 {n_p}$.
+        %Then, with the same notations as above, we have :
+        %\[
+        %    m^e \equiv \sum_{k = 1}^{p - 1} c_k N_k M_k + c_p N_p M_p\ [N]
+        %\]
+
+        %and we could test for all values of $c_p$ in $\nset 1{n_p}$ to calculate the $e$\textsuperscript{th} root of $m^e$.
+
+        %We have the following system :
+        %\[
+        %    \begin{cases}
+        %        m^e
+        %        \equiv \displaystyle
+        %        \sum_{k = 0}^{p - 1} c_k N_k' M_k'\ [N']
+        %        \\
+        %        m^e \equiv c_p\ [n_p]
+        %    \end{cases}
+        %\]
+
+        %where $\forall k \in \nset 1 {p - 1}$ :
+        %\[
+        %    \begin{array}{rcl}
+        %        N'
+        %        &=& \displaystyle
+        %        \prod_{i = 0}^{p - 1} n_i
+        %        \vspace{6pt}
+        %        \\
+        %        N_k'
+        %        &=& \dfrac{N'}{n_k}
+        %        \vspace{6pt}
+        %        \\
+        %        M_k'
+        %        &\equiv& {N_k'}^{-1}\ [n_k]
+        %    \end{array}
+        %\]
+
+        %We can thus determine $m^e \mod N'$, but we don't have $c_p$.
+
+        \vspace{12pt}
+        
+        \begin{indt}{\subsection{Trying with large messages}}
+            $\bullet$ If $M - M^{\tfrac 1 e} < m < M$, with $M \approx n^p$, at the first approximation, $m \approx M$, then
+            \[
+                \dfrac e s \log_2(m)
+                \approx \dfrac e s \log_2(n^p)
+                = \dfrac e s p s
+                = ep
+            \]
+            
+            so we need $e$ times more equations by using the normal way (maybe a bit less because of the approximation).
+            
+            We can calculate, with the CRT (Hastad attack), $m^e \ [M]$, and then we can recover $m$ using \ref{largeMessage}.
+            
+            \begin{pseudocode}
+                So if we are in the right conditions, and if we need to use $ep$ equations to recover $m$ using the first method, then we will be able to recover $m$ with only $p$ equations using this method.
+            \end{pseudocode}
+            
+            We have $p = \ceil{\dfrac e s \log_2(m)}$. If $\exists p' \in \N\ |\ p = ep'$, we can recover $m$ with only $p'$ equations. Is it possible if we have more than $p'$ equations ? Does this gives a constraint on the message ?
+            
+            \vspace{6pt}
+            
+            Is it possible to do something with $m' = M - m$ ?
+            With the thing below, we have $\log_2(M) \approx \log_2(m)$, so $m' \approx 0$ (need to go to the next order ?).
+            In fact, we have $0 < m' < M^{\tfrac 1 e}$.
+            
+            \vspace{6pt}
+            
+            If we have $m'$, we can calculate $p' = \ceil{\dfrac e s \log_2(m')}$.
+            Then let $p = ep'$, and let $m$ such that $p = \ceil{\dfrac e s \log_2(m)}$.
+            
+            We now need to find $M$ such that $m' = M - m$.
+            
+            But $M$ depends on $p$ !
+            
+            ---
+            
+            If we have $m$ and $p$, is it possible to make $m'$ ? We need $\dfrac p e$ equations, but this should be an int. What if it is not ?
+            
+            %TODO: continue this !
+            
+            \vspace{6pt}
+            
+            But we did things the opposite way : in reality we have the message encrypted, we don't know its original length, and we have a certain number of equations.
+            
+            However, given a message, can we determine the number of equations needed to recover it using this method ?
+            
+            In order for this method to work, we need to have $p \in \N^*$ such that
+            \[
+                n^p - n^{\tfrac p e} < m < n^p
+            \]
+            
+            \textit{i.e} such that
+            \[
+                \begin{array}{rcl}
+                    2^{sp} - 2^{\tfrac{sp}{e}} < m < 2^{sp}
+                    &\ssi&
+                    n^p \lr{1 - n^{p\tfrac{1 - e}{e}}} < m < n^p
+                    \\
+                    &\ssi&
+                \end{array}
+            \]
+            
+            What does it implies on $p$ ?
+            
+            ---
+            
+            If $M - M^{\tfrac 1 e} < m < M$, and
+            %$\floor{\log_{10}(m)} + 1 = \alpha l = \floor{\dfrac{\log_2(m)}{\log_2(10)}} + 1$
+            $\log_2(m) \approx \alpha l$, where $l$ is the length of the message (not encoded
+            %: \textit{i.e} it is the number of characters in the string
+            ), $\alpha$ depends on the encoding, then
+            \[
+                \log_2\!\lr{M - M^{\tfrac 1 e}} < \alpha l < \log_2(M) = sp
+            \]
+            
+            And $M - M^{\tfrac 1 e} = 2^{sp} - 2^{\tfrac {sp} e} = 2^{sp}\lr{1 - 2^{sp\tfrac{1 - e}{e}}}$ so
+            \[
+                \dfrac{sp + \log_2\!\lr{1 - 2^{sp\tfrac{1 - e}{e}}}}{\alpha} \le l \le \dfrac{sp}{\alpha}
+            \]
+            
+            But as $e \ge 3$, we have $-1 \le \dfrac{1 - e}{e} \le - \dfrac 2 3$, so as $sp \gg 1$ ($s = 2048$, $p \in \N^*$),
+            \[
+                \varepsilon = 2^{sp\tfrac{1 - e}{e}} \approx 0
+            \]
+            
+            and
+            \[
+                \dfrac{sp}{\alpha} \le l \le \dfrac{sp}{\alpha}
+            \]
+            
+            So $l = \dfrac{sp}{\alpha}$. As $l \in \N$, this is only possible if
+            \[
+                \alpha \mid sp
+            \]
+            
+            ---
+            
+            At least, we need to have $sp + \varepsilon \le \log_2(m) \le sp$, \textit{i.e} $\oboxed{\log_2(m) \approx sp = \log_2(M)}$.
+
+            % \vspace{12pt}
+            % 
+            % ---
+            %
+            % Testing if it is possible.
+            %
+            % Let $e = 3$, $s = 2048$, $p = 9$. Is it possible to find a message $m$ such that
+            % \[
+            %     p = \ceil{\dfrac e s \log_2(m)} \quad ?
+            % \]
+            %
+            % We have :
+            % \[
+            %     \begin{array}{rcl}
+            %         p = \ceil{\dfrac e s \log_2(m)}
+            %         &\ssi& p < \dfrac e s \log_2(m) \le p + 1
+            %         \vspace{6pt}
+            %         \\
+            %         &\ssi& \dfrac{ps}{e} < \log_2(m) \le \dfrac{p + 1}{e}s
+            %         \vspace{6pt}
+            %         \\
+            %         &\ssi& 2^{\tfrac{ps}{e}} < m \le 2^{\tfrac{ps}{e} + \tfrac s e}
+            %         \vspace{6pt}
+            %         \\
+            %         &\ssi& m \in \underbrace{\nset{2^{\tfrac{ps}{e}} - 1}{2^{\tfrac{ps}{e} + \tfrac s e}}}_{E}
+            %     \end{array}
+            % \]
+            %
+            % We have :
+            % \[
+            %     \begin{array}{rcl}
+            %         \mathrm{card}(E)
+            %         &=& 2^{\tfrac{ps}{e} + \tfrac s e} - \lr{2^{\tfrac{ps}{e}} - 1} + 1
+            %         \\
+            %         &=& 2^{\tfrac{ps}{e}} \lr{2^{\tfrac s e} - 1} + 2
+            %     \end{array}
+            % \]
+        \end{indt}
+    \end{indt}
+
+    \vspace{12pt}
+    
+    \begin{indt}{\section{Wiener's attack}}
+        \begin{indt}{\subsection{Classic attack}}
+            Let
+            $
+                \left|
+                \begin{array}{l}
+                    p, q \in \mathbb{P}\ |\ q < p < 2q
+                    \vspace{6pt}
+                    \\
+                    n = pq
+                    \vspace{6pt}
+                    \\
+                    d \in \left[ 1\ ;\ \frac 1 3 n^{\frac 1 4} \right[ \cap \N
+                    \vspace{6pt}
+                    \\
+                    e \in \nset{1}{\phi(n)}\ |\ ed \equiv 1\ [\phi(n)]
+                \end{array}
+                \right.
+            $.
+            Let be $\varphi = \phi(n)$.
+            
+            Given $(e, n)$, one can efficiently recover $d$.
+            
+            Proof :
+            
+            Since $ed \equiv 1 \ [\varphi]$, $\exists k \in \N\ |\ ed - k \varphi = 1$, so :
+            \[
+                \begin{array}{rc}
+                    & \dfrac{ed - k \varphi}{d\varphi} = \dfrac{1}{d\varphi}
+                    \vspace{6pt}
+                    \\
+                    \Rightarrow&
+                    \dfrac e \varphi - \dfrac k d = \dfrac 1 {d \varphi}
+                    \vspace{6pt}
+                    \\
+                    \Rightarrow&
+                    \abs{\dfrac e \varphi - \dfrac k d} = \dfrac 1 {d \varphi}
+                \end{array}
+            \]
+            
+            Hence $\dfrac k d$ is an approximation of $\dfrac e \varphi$.
+            
+            We can now try to approximate $\varphi$ with $n$ :
+            \[
+                \varphi = \phi(n) = (p - 1)(q - 1) = n - p - q + 1
+            \]
+            
+            And $p + q - 1 < 3\sqrt n$ : since
+            $
+                \begin{cases}
+                    p < 2q
+                    \\
+                    q < p
+                \end{cases}
+            $
+            (by hypothesis), we have
+            \[
+                \begin{cases}
+                    p + q < 3q
+                    \\
+                    q^2 < pq = n
+                \end{cases}
+                \Rightarrow
+                \begin{cases}
+                    p + q < 3q
+                    \\
+                    q < \sqrt n
+                \end{cases}
+                \Rightarrow
+                p + q < 3\sqrt n
+                \Rightarrow p + q - 1 < 3\sqrt n
+            \]
+            So $\abs{n - \varphi} = \abs{p + q - 1} < 3\sqrt n$.
+            
+            \vspace{12pt}
+            
+            Then we have :
+            
+            \[
+                \begin{array}{rcl}
+                    \abs{\dfrac e n - \dfrac k d}
+                    &=& \abs{\dfrac{ed - nk}{nd}}
+                    \vspace{6pt}
+                    \\
+                    &=& \abs{\dfrac{ed - k\varphi + k\varphi - nk}{nd}}
+                    \vspace{6pt}
+                    \\
+                    &=& \abs{\dfrac{1 - k(n - \varphi)}{nd}}
+                    \vspace{6pt}
+                    \\
+                    &<& \dfrac{1 + \abs{k(n - \varphi)}}{\abs{nd}}
+                    \vspace{6pt}
+                    \\
+                    &\le& \abs{\dfrac{k(n - \varphi)}{nd}}
+                    \vspace{6pt}
+                    \\
+                    &\le& \abs{\dfrac{3k\sqrt{n}}{nd}}
+                    \vspace{6pt}
+                    \\
+                    &=& \dfrac{3k}{d\sqrt n}.
+                \end{array}
+            \]
+            
+            Then, $k \varphi = ed - 1 < ed$ and $e < \varphi$, so $k < \dfrac{e}{\varphi}d < d$, so :
+            \[
+                k < d < \tfrac 1 3 n^{\frac 1 4}
+                \ \Rightarrow\
+                \dfrac k d < 1 < \dfrac{n^{\frac 1 4}}{3d}
+            \]
+            
+            Hence :
+            \[
+                \begin{array}{rcl}
+                    \abs{\dfrac e n - \dfrac k d}
+                    &\le&
+                    \dfrac k d \dfrac{3}{\sqrt n}
+                    \vspace{6pt}
+                    \\
+                    &\le& \dfrac{n^{\frac 1 4}}{3d} \dfrac{3}{\sqrt n}
+                    \vspace{6pt}
+                    \\
+                    &=& \dfrac{1}{d n^{\frac 1 4}}
+                \end{array}
+            \]
+            
+            And :
+            \[
+                2d^2 < \dfrac 2 3 dn^{\frac 1 4} < dn^{\frac 1 4}
+                \ \Rightarrow\
+                \dfrac 3 {2d n^{\frac 1 4}} < \dfrac 1 {2d^2}
+            \]
+            
+            Hence :
+            \[
+                \oboxed{
+                \abs{\dfrac e n - \dfrac k d}
+                \le \dfrac{1}{dn^{\frac 1 4}}
+                \le \dfrac{1}{2d^2}
+                }
+            \]
+            
+            So $\dfrac e n$ is an approximation of $\dfrac k d$.
+            In fact, all fraction approximating $\dfrac e n$ can be obtained as the convergents of the continued fraction expansion of $\dfrac e n$.
+            
+            The number of such fractions is bounded by $\log_2(n)$ (Why ???), and $\dfrac k d$ is one of them.
+            
+            Let $k_i$ and $d_i$ the numerator and denominator of the $i$-th convergent of the expansion of $\dfrac e n$ ($i \in \nset{0}{i_{\rm m}}$).
+            
+            Now compute, $\forall i \in \nset 0 {i_{\rm m}}$, $\varphi_i = \dfrac{e \cdot d_i - 1}{k_i}$.
+            
+            We know that :
+            \[
+                \begin{array}{rl}
+                    &
+                    \begin{cases}
+                        n = pq
+                        \\
+                        \varphi = (p - 1)(q - 1)
+                    \end{cases}
+                    \vspace{6pt}
+                    \\
+                    \Rightarrow
+                    &
+                    \begin{cases}
+                        n = pq
+                        \\
+                        \varphi = n - p - q + 1
+                    \end{cases}
+                    \vspace{6pt}
+                    \\
+                    \Rightarrow
+                    &
+                    \begin{cases}
+                        pq = n
+                        \\
+                        p + q = n - \varphi + 1
+                    \end{cases}
+                    \vspace{6pt}
+                    \\
+                    \Rightarrow
+                    &
+                    p, q \in \set{x \in \R\ |\ x^2 - (n - \varphi + 1)x + n = 0}
+                \end{array}
+            \]
+            ($p \neq q$, otherwise factoring $n$ is simple ...)
+            
+            So we can calculate $\forall i \in \nset 0 {i_{\rm m}}$ the roots of $x^2 - (n - \varphi_i + 1)x + n$, and check if they factor $n$.
+        \end{indt}
+
+        \vspace{12pt}
+        
+        \begin{indt}{\subsection{Extension with large private exponent}}
+            We use the same notations as above, but we take $d$ satisfying :
+            \[
+                \sqrt 6 (\varphi - d) < n^{\tfrac 1 4}
+            \]
+
+            so
+            \[
+                \begin{array}{rcl}
+                    \sqrt 6 (\varphi - d) < n^{\tfrac 1 4}
+                    &\ssi& \sqrt 6 d > \sqrt 6 \varphi - n^{\tfrac 1 4}
+                    \\
+                    &\ssi& d > \varphi - \dfrac{\sqrt 6}{6} n^{\tfrac 1 4}
+                \end{array}
+            \]
+
+            So $d \in \left] \varphi - \dfrac{\sqrt 6}{6}n^{\tfrac 1 4}\ ;\ \varphi \right[$.
+
+            \[
+                \begin{array}{rcl}
+                    \varphi - \dfrac{\sqrt 6} 6 n^{\tfrac 1 4} < d < \varphi
+                    &\ssi& -\varphi < -d < \dfrac{\sqrt 6}{6}n^{\tfrac 1 4} - \varphi
+                    \vspace{3pt}
+                    \\
+                    &\ssi& 0 < \varphi - d < \dfrac{\sqrt{6}}{6} n^{\tfrac 1 4}
+                \end{array}
+            \]
+
+            So let $D = \varphi - d$.
+
+            We have $D < \dfrac{1}{\sqrt 6} n^{\tfrac 1 4}$
+
+            The above proof is still correct for such a $D$ (because $\dfrac{\sqrt 2} 2 < 1$)
+        \end{indt}
+    \end{indt}
+    
+    
+    
+\end{document}
+%--------------------------------------------End
